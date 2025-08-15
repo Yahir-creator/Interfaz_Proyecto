@@ -22,7 +22,7 @@ namespace interfaz_medico
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private MySqlConnection NuevaConexion() => new MySqlConnection(_connStr);
@@ -179,8 +179,7 @@ namespace interfaz_medico
             // noop
         }
 
-        // Volver a FormLogin en lugar de cerrar la aplicación
-        private void BtnCerrarSesion_Click(object sender, EventArgs e)
+        private void btnCerrarSesion_Click_1(object sender, EventArgs e)
         {
             var login = new FormLogin();
             login.Show();

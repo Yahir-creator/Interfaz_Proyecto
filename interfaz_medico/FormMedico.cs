@@ -1,15 +1,19 @@
-﻿using MySql.Data.MySqlClient;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing.Text;
+using Font = System.Drawing.Font;
+using Rectangle = System.Drawing.Rectangle;
 
 
 namespace ClinicaMedica
@@ -23,8 +27,7 @@ namespace ClinicaMedica
         // Carpeta donde están tus plantillas/imágenes de recetas
         private readonly string[] _carpetasRecetas = new[]
         {
-            @"C:\Users\jesus\OneDrive\Desktop\ACADEMICO\Recetas",
-            @"C:\Users\jesus\OneDrive\Desktop\Recetas" // opcional como respaldo
+            @"C:\Recetas",
         };
 
         // *** ÚNICA PLANTILLA A UTILIZAR ***
@@ -59,7 +62,6 @@ namespace ClinicaMedica
             btnNuevaReceta.Click += BtnNuevaReceta_Click;
             btnGenerarReceta.Click += BtnGenerarReceta_Click;
             btnEnviarReceta.Click += BtnEnviarReceta_Click;
-            btnCerrarSesion.Click += BtnCerrarSesion_Click;
 
             cbMedicamento1.SelectedIndexChanged += CbMedicamento_SelectedIndexChanged;
             cbMedicamento2.SelectedIndexChanged += CbMedicamento_SelectedIndexChanged;
@@ -94,8 +96,6 @@ namespace ClinicaMedica
         {
             if (_pbReceta != null) return;
             _pbReceta = new PictureBox();
-            _pbReceta.Bounds = txtReceta.Bounds;
-            _pbReceta.Anchor = txtReceta.Anchor;
             _pbReceta.SizeMode = PictureBoxSizeMode.Zoom;
             _pbReceta.Visible = false;
             this.Controls.Add(_pbReceta);
@@ -399,9 +399,7 @@ namespace ClinicaMedica
 
             cbCantidad1.Enabled = cbCantidad2.Enabled = cbCantidad3.Enabled = cbCantidad4.Enabled = false;
 
-            txtReceta.Clear();
             if (_pbReceta != null) _pbReceta.Visible = false;
-            txtReceta.Visible = true;
 
             if (_ultimaImagenReceta != null) { _ultimaImagenReceta.Dispose(); _ultimaImagenReceta = null; }
 
@@ -425,20 +423,41 @@ namespace ClinicaMedica
                 return;
             }
 
+            if (GrdResult.Columns.Count == 0)
+            {
+                GrdResult.Columns.Add("Medicamento", "Medicamento");
+                GrdResult.Columns.Add("Cantidad", "Cantidad");
+                GrdResult.Columns.Add("Dosis", "Dosis");
+                GrdResult.Columns.Add("Frecuencia", "Frecuencia");
+                GrdResult.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+
+            GrdResult.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            GrdResult.Rows.Clear();
+
+            AgregarFila(GrdResult, cbMedicamento1, cbCantidad1, cbDosis1, cbFrecuencia1);
+            AgregarFila(GrdResult, cbMedicamento2, cbCantidad2, cbDosis2, cbFrecuencia2);
+            AgregarFila(GrdResult, cbMedicamento3, cbCantidad3, cbDosis3, cbFrecuencia3);
+            AgregarFila(GrdResult, cbMedicamento4, cbCantidad4, cbDosis4, cbFrecuencia4);
+
             // Vista en texto
             StringBuilder receta = new StringBuilder();
-            receta.AppendLine("CLÍNICA MÉDICA GENERAL");
             receta.AppendLine("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy"));
+            receta.AppendLine("");
             receta.AppendLine("Paciente: " + cbPacientes.Text);
+            receta.AppendLine("");
             receta.AppendLine("Receta:");
+            receta.AppendLine("");
             AgregarLineaReceta(receta, cbMedicamento1, cbCantidad1, cbDosis1, cbFrecuencia1);
+            receta.AppendLine("");
             AgregarLineaReceta(receta, cbMedicamento2, cbCantidad2, cbDosis2, cbFrecuencia2);
+            receta.AppendLine("");
             AgregarLineaReceta(receta, cbMedicamento3, cbCantidad3, cbDosis3, cbFrecuencia3);
+            receta.AppendLine("");
             AgregarLineaReceta(receta, cbMedicamento4, cbCantidad4, cbDosis4, cbFrecuencia4);
-            receta.AppendLine().AppendLine().AppendLine();
 
-            txtReceta.Font = new Font("Courier New", 10);
-            txtReceta.Text = receta.ToString();
+            MessageBox.Show(receta.ToString(), "CLÍNICA MÉDICA GENERAL", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             try
             {
@@ -446,12 +465,8 @@ namespace ClinicaMedica
                 string rutaPlantilla = ResolverPlantillaAbsoluta(_plantillaBase);
                 if (rutaPlantilla == null)
                 {
-                    MessageBox.Show(
-                        "No se encontró la plantilla:\n" + _plantillaBase +
-                        "\nSe buscó en:\n" + RutasBusquedaTexto() +
-                        "\n\nArchivos válidos: .png, .jpg, .jpeg, .bmp");
+                    MessageBox.Show("No se encontró la plantilla:\n" + _plantillaBase + "\nSe buscó en:\n" + RutasBusquedaTexto() + "\n\nArchivos válidos: .png, .jpg, .jpeg, .bmp");
                     if (_pbReceta != null) _pbReceta.Visible = false;
-                    txtReceta.Visible = true;
                     if (_ultimaImagenReceta != null) { _ultimaImagenReceta.Dispose(); _ultimaImagenReceta = null; }
                     return;
                 }
@@ -468,15 +483,14 @@ namespace ClinicaMedica
 
                 AsegurarVisorImagen();
                 if (_pbReceta.Image != null) _pbReceta.Image.Dispose();
-                _pbReceta.Image = (Bitmap)bmp.Clone();
-                _pbReceta.Visible = true;
-                txtReceta.Visible = false;
+
+                string rutaPdf = GenerarPDFReceta(bmp, "Receta_" + cbPacientes.Text);
+                MostrarPDF(rutaPdf);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("No se pudo generar la imagen de la receta: " + ex.Message);
                 if (_pbReceta != null) _pbReceta.Visible = false;
-                txtReceta.Visible = true;
                 if (_ultimaImagenReceta != null) { _ultimaImagenReceta.Dispose(); _ultimaImagenReceta = null; }
             }
         }
@@ -579,15 +593,7 @@ namespace ClinicaMedica
             e.HasMorePages = false;
         }
 
-        // Cerrar sesión y regresar a FormLogin (sin cerrar la app)
-        private void BtnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            var login = new interfaz_medico.FormLogin();
-            login.Show();
-            this.Close();
-        }
 
-        private void FormMedico_Load(object sender, EventArgs e) { }
 
         private bool EsMedicamentoDuplicado(ComboBox quien)
         {
@@ -814,6 +820,128 @@ namespace ClinicaMedica
         // Stubs del diseñador
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void BtnEscanearQr_Click(object sender, EventArgs e) { }
-        private void TxtReceta_TextChanged(object sender, EventArgs e) { }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Cerrar sesión y regresar a FormLogin (sin cerrar la app)
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            var login = new interfaz_medico.FormLogin();
+            login.Show();
+            this.Close();
+        }
+
+        private void cbCantidad3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GrdResult_Paint(object sender, PaintEventArgs e)
+        {
+            if (GrdResult.Rows.Count == 0)
+            {
+                string mensaje = "No hay datos para mostrar";
+                using (Font font = new Font("Segoe UI", 12, FontStyle.Italic))
+                {
+                    TextRenderer.DrawText(
+                        e.Graphics,
+                        mensaje,
+                        font,
+                        GrdResult.ClientRectangle,
+                        Color.Gray,
+                        TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+                    );
+                }
+            }
+        }
+
+        private void cbMedicamento1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            DataRowView fila = (DataRowView)cbMedicamento1.SelectedItem;
+            string estado = fila["estado"].ToString().ToLower();
+
+            if (estado == "caducado")
+            {
+                MessageBox.Show("Este medicamento está caducado. No se puede seleccionar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbMedicamento1.SelectedIndex = -1;
+            }
+            else if (estado == "agotado")
+            {
+                MessageBox.Show("Este medicamento está agotado. No se puede seleccionar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbMedicamento1.SelectedIndex = -1;
+            }
+        }
+
+        private string GenerarPDFReceta(Bitmap bmp, string nombreArchivo)
+        {
+            string ruta = Path.Combine(Path.GetTempPath(), nombreArchivo + ".pdf");
+
+            using (FileStream fs = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                // Crear documento PDF
+                using (Document doc = new Document(PageSize.A4))
+                {
+                    PdfWriter.GetInstance(doc, fs);
+                    doc.Open();
+
+                    // Convertir Bitmap a iTextSharp.text.Image
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        iTextSharp.text.Image pdfImage = iTextSharp.text.Image.GetInstance(ms.ToArray());
+
+                        // Escalar proporcionalmente al ancho de la página
+                        float maxWidth = doc.PageSize.Width - doc.LeftMargin - doc.RightMargin;
+                        float maxHeight = doc.PageSize.Height - doc.TopMargin - doc.BottomMargin;
+                        pdfImage.ScaleToFit(maxWidth, maxHeight);
+
+                        pdfImage.Alignment = Element.ALIGN_CENTER;
+                        doc.Add(pdfImage);
+                    }
+
+                    doc.Close();
+                }
+            }
+
+            return ruta;
+        }
+
+        private void MostrarPDF(string rutaPdf)
+        {
+            Form visor = new Form();
+            visor.Text = "Receta Médica";
+            visor.WindowState = FormWindowState.Maximized;
+
+            WebBrowser wb = new WebBrowser();
+            wb.Dock = DockStyle.Fill;
+            wb.Navigate(rutaPdf);
+            visor.Controls.Add(wb);
+
+            // Botones cerrar e imprimir
+            Button btnCerrar = new Button() { Text = "Cerrar", Dock = DockStyle.Bottom };
+            btnCerrar.Click += (s, e) => visor.Close();
+            visor.Controls.Add(btnCerrar);
+
+            Button btnImprimir = new Button() { Text = "Imprimir", Dock = DockStyle.Bottom };
+            btnImprimir.Click += (s, e) => wb.ShowPrintDialog();
+            visor.Controls.Add(btnImprimir);
+
+            visor.ShowDialog();
+        }
+
+        private void AgregarFila(DataGridView dgv, ComboBox medicamento, ComboBox cantidad, ComboBox dosis, ComboBox frecuencia)
+        {
+            if (!string.IsNullOrWhiteSpace(medicamento.Text) &&
+                !string.IsNullOrWhiteSpace(cantidad.Text) &&
+                !string.IsNullOrWhiteSpace(dosis.Text) &&
+                !string.IsNullOrWhiteSpace(frecuencia.Text))
+            {
+                dgv.Rows.Add(medicamento.Text, cantidad.Text, dosis.Text, frecuencia.Text);
+            }
+        }
+
     }
 }

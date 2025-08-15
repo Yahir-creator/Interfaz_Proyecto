@@ -133,6 +133,16 @@ namespace interfaz_medico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap check_to_slot_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("check-to-slot-solid-full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CONLOGO {
             get {
                 object obj = ResourceManager.GetObject("CONLOGO", resourceCulture);
@@ -176,6 +186,26 @@ namespace interfaz_medico.Properties {
         internal static System.Drawing.Bitmap farmacia_fondo {
             get {
                 object obj = ResourceManager.GetObject("farmacia fondo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap file_arrow_up_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("file-arrow-up-solid-full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap file_pdf_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("file-pdf-solid-full", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -243,6 +273,16 @@ namespace interfaz_medico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logout_red {
+            get {
+                object obj = ResourceManager.GetObject("logout-red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap medico_fondo {
             get {
                 object obj = ResourceManager.GetObject("medico fondo", resourceCulture);
@@ -283,9 +323,39 @@ namespace interfaz_medico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap right_from_bracket_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("right-from-bracket-solid-full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap suma {
             get {
                 object obj = ResourceManager.GetObject("suma", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trash_can_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("trash-can-solid-full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("user-solid-full", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

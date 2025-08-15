@@ -1,9 +1,10 @@
 ﻿// FormAlmacen.cs
+using MySql.Data.MySqlClient;
 using System;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace interfaz_medico
 {
@@ -45,7 +46,7 @@ namespace interfaz_medico
             btnEliminarDef.Click += BtnEliminarDefinitivo_Click;
 
             // Cerrar sesión → volver a FormLogin (no cerrar toda la app)
-            btnCerrarSesion.Click += BtnCerrarSesion_Click;
+            BtnCerrarSesion.Click += BtnCerrarSesion_Click;
 
             // Carga inicial de la grilla
             CargarMedicamentosGrid();
@@ -108,7 +109,6 @@ namespace interfaz_medico
                 _selMedId = _selMdId = _selLoteId = null;
                 _selNombre = _selDosis = _selLoteNum = _selEstado = "";
                 _selCad = null; _selStock = 0;
-                ActualizarResumenSeleccion();
                 HabilitarAcciones(false, false);
                 return;
             }
@@ -124,34 +124,88 @@ namespace interfaz_medico
             _selStock = Convert.ToInt32(r.Cells["stock"].Value ?? 0);
             _selCad = r.Cells["caducidad"].Value == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(r.Cells["caducidad"].Value);
 
-            ActualizarResumenSeleccion();
+            //bool caducado = string.Equals(_selEstado, "caducado", StringComparison.OrdinalIgnoreCase);
+            //bool puedeAgregar = true;
+            bool puedeBajar = _selStock > 0;
 
-            bool caducado = string.Equals(_selEstado, "caducado", StringComparison.OrdinalIgnoreCase);
-            bool puedeAgregar = !caducado;
-            bool puedeBajar = !caducado && _selStock > 0;
-
-            HabilitarAcciones(puedeAgregar, puedeBajar);
+            HabilitarAcciones(true, puedeBajar);
         }
 
-        private void ActualizarResumenSeleccion()
-        {
-            string cadTxt = _selCad.HasValue ? _selCad.Value.ToString("dd/MM/yyyy") : "--";
-            lblSelAlta.Text = string.IsNullOrEmpty(_selNombre) ? "Fila seleccionada: —"
-                                  : $"Fila seleccionada: {_selNombre} – {_selDosis} – Lote {_selLoteNum} – Cad.: {cadTxt}";
-            lblSelBaja.Text = lblSelAlta.Text;
-            lblSelEliminar.Text = lblSelAlta.Text;
-        }
 
         private void dgvMedicamentos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
+        private void dgvMedicamentos_Paint(object sender, PaintEventArgs e)
+        {
+            if (dgvMedicamentos.Rows.Count == 0)
+            {
+                string mensaje = "No hay datos para mostrar";
+                using (Font font = new Font("Segoe UI", 12, FontStyle.Italic))
+                {
+                    TextRenderer.DrawText(
+                        e.Graphics,
+                        mensaje,
+                        font,
+                        dgvMedicamentos.ClientRectangle,
+                        Color.Gray,
+                        TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+                    );
+                }
+            }
+        }
+
+        private void lblCant_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtAltaCantidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gbAlta_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormAlmacen_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvMedicamentos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvMedicamentos.Columns["estado"].Index == e.ColumnIndex && e.Value != null)
+            {
+                string estado = e.Value.ToString().ToLower();
+
+                if (estado == "caducado")
+                {
+                    dgvMedicamentos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue; // Azul bajito
+                    dgvMedicamentos.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else if (estado == "agotado")
+                {
+                    dgvMedicamentos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                    dgvMedicamentos.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+                }
+            }
+        }
+
+        private void btnAgregarMedicamento_Click(object sender, EventArgs e)
+        {
+            FormAgregarMedicamento formAgregar = new FormAgregarMedicamento();
+            formAgregar.ShowDialog();
+        }
+
         private void HabilitarAcciones(bool puedeAgregar, bool puedeBajar)
         {
             btnAgregar.Enabled = puedeAgregar && _selMdId.HasValue && _selLoteId.HasValue;
             btnBaja.Enabled = puedeBajar && _selMdId.HasValue && _selLoteId.HasValue;
-            btnEliminarDef.Enabled = _selMdId.HasValue && _selLoteId.HasValue; // siempre permitida
+            btnEliminarDef.Enabled = _selMdId.HasValue && _selLoteId.HasValue;
         }
 
         // ---------------- Acciones ----------------
@@ -168,11 +222,6 @@ namespace interfaz_medico
                 MessageBox.Show("Cantidad inválida (> 0).");
                 return;
             }
-            if (string.Equals(_selEstado, "caducado", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("El lote está caducado. No se puede agregar stock.");
-                return;
-            }
 
             try
             {
@@ -182,9 +231,11 @@ namespace interfaz_medico
                     using (var tx = cn.BeginTransaction())
                     {
                         using (var cmd = new MySqlCommand(
-                            @"UPDATE md_stock_lote
-                              SET stock = stock + @c
-                              WHERE medicamento_dosis_id = @md AND lote_id = @lote;", cn, tx))
+                            @"
+                                UPDATE md_stock_lote
+                                SET stock = COALESCE(stock, 0) + @c
+                                WHERE medicamento_dosis_id = @md AND lote_id = @lote;
+                            ", cn, tx))
                         {
                             cmd.Parameters.AddWithValue("@c", cant);
                             cmd.Parameters.AddWithValue("@md", _selMdId.Value);
@@ -210,11 +261,6 @@ namespace interfaz_medico
             if (!_selMdId.HasValue || !_selLoteId.HasValue)
             {
                 MessageBox.Show("Selecciona una fila.");
-                return;
-            }
-            if (string.Equals(_selEstado, "caducado", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show("El lote está caducado. No se puede operar sobre él.");
                 return;
             }
             if (_selStock <= 0)
