@@ -22,19 +22,21 @@ namespace interfaz_medico
             this.txtRecetaEntregada = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCerrarSesion = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnActualizar = new System.Windows.Forms.PictureBox();
             this.btnEntregado = new System.Windows.Forms.PictureBox();
-            this.btnCerrarSesion = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.BtnLogout = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrarSesion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnActualizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEntregado)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCerrarSesion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -81,12 +83,24 @@ namespace interfaz_medico
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.BtnLogout);
             this.panel1.Controls.Add(this.btnCerrarSesion);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 100);
+            this.panel1.Size = new System.Drawing.Size(1365, 100);
             this.panel1.TabIndex = 5;
+            // 
+            // btnCerrarSesion
+            // 
+            this.btnCerrarSesion.Image = global::interfaz_medico.Properties.Resources.logout_red;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(1837, 23);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(54, 54);
+            this.btnCerrarSesion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnCerrarSesion.TabIndex = 1;
+            this.btnCerrarSesion.TabStop = false;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click_1);
             // 
             // label1
             // 
@@ -120,17 +134,6 @@ namespace interfaz_medico
             this.btnEntregado.TabStop = false;
             this.btnEntregado.Click += new System.EventHandler(this.btnEntregado_Click_1);
             // 
-            // btnCerrarSesion
-            // 
-            this.btnCerrarSesion.Image = global::interfaz_medico.Properties.Resources.logout_red;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(1837, 23);
-            this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(54, 54);
-            this.btnCerrarSesion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnCerrarSesion.TabIndex = 1;
-            this.btnCerrarSesion.TabStop = false;
-            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click_1);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -152,6 +155,18 @@ namespace interfaz_medico
             this.label3.Size = new System.Drawing.Size(88, 22);
             this.label3.TabIndex = 9;
             this.label3.Text = "Entregado";
+            // 
+            // BtnLogout
+            // 
+            this.BtnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnLogout.Image = global::interfaz_medico.Properties.Resources.logout_red;
+            this.BtnLogout.Location = new System.Drawing.Point(1290, 23);
+            this.BtnLogout.Name = "BtnLogout";
+            this.BtnLogout.Size = new System.Drawing.Size(54, 54);
+            this.BtnLogout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BtnLogout.TabIndex = 2;
+            this.BtnLogout.TabStop = false;
+            this.BtnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
             // FormFarmacia
             // 
@@ -178,9 +193,10 @@ namespace interfaz_medico
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrarSesion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnActualizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEntregado)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCerrarSesion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnLogout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,5 +215,6 @@ namespace interfaz_medico
         private PictureBox btnActualizar;
         private Label label2;
         private Label label3;
+        private PictureBox BtnLogout;
     }
 }

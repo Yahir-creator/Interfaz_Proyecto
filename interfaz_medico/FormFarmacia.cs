@@ -183,6 +183,13 @@ namespace interfaz_medico
         {
             CargarRecetas(soloPendientes: false);
         }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            var login = new FormLogin();
+            login.Show();
+            this.Close();
+        }
     }
 
     // Extensión segura para comprobar columnas sin provocar el error de colección
