@@ -197,8 +197,14 @@ namespace interfaz_medico
 
         private void btnAgregarMedicamento_Click(object sender, EventArgs e)
         {
-            FormAgregarMedicamento formAgregar = new FormAgregarMedicamento();
-            formAgregar.ShowDialog();
+            using (FormAgregarMedicamento formAgregar = new FormAgregarMedicamento())
+            {
+                if (formAgregar.ShowDialog() == DialogResult.OK)
+                {
+                    // Aquí sabes que el usuario aceptó
+                    CargarMedicamentosGrid();
+                }
+            }
         }
 
         private void HabilitarAcciones(bool puedeAgregar, bool puedeBajar)

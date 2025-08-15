@@ -191,7 +191,7 @@ namespace interfaz_medico
             if (success)
             {
                 MessageBox.Show("Registro completado correctamente", "Registro exitoso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                this.DialogResult = DialogResult.OK;
             }
         }
 
