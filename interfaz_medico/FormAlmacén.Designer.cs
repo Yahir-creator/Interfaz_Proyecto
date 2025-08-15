@@ -56,7 +56,7 @@ namespace interfaz_medico
             this.dgvMedicamentos.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvMedicamentos.Location = new System.Drawing.Point(12, 113);
             this.dgvMedicamentos.Name = "dgvMedicamentos";
-            this.dgvMedicamentos.Size = new System.Drawing.Size(1880, 730);
+            this.dgvMedicamentos.Size = new System.Drawing.Size(1326, 443);
             this.dgvMedicamentos.TabIndex = 0;
             this.dgvMedicamentos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvMedicamentos_CellFormatting);
             this.dgvMedicamentos.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvMedicamentos_Paint);
@@ -68,7 +68,7 @@ namespace interfaz_medico
             this.gbAlta.Controls.Add(this.btnAgregar);
             this.gbAlta.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAlta.ForeColor = System.Drawing.Color.White;
-            this.gbAlta.Location = new System.Drawing.Point(491, 870);
+            this.gbAlta.Location = new System.Drawing.Point(305, 571);
             this.gbAlta.Name = "gbAlta";
             this.gbAlta.Size = new System.Drawing.Size(420, 108);
             this.gbAlta.TabIndex = 2;
@@ -111,21 +111,24 @@ namespace interfaz_medico
             this.gbBaja.Controls.Add(this.btnBaja);
             this.gbBaja.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbBaja.ForeColor = System.Drawing.Color.White;
-            this.gbBaja.Location = new System.Drawing.Point(982, 870);
+            this.gbBaja.Location = new System.Drawing.Point(774, 571);
             this.gbBaja.Name = "gbBaja";
-            this.gbBaja.Size = new System.Drawing.Size(420, 108);
+            this.gbBaja.Size = new System.Drawing.Size(285, 108);
             this.gbBaja.TabIndex = 3;
             this.gbBaja.TabStop = false;
             this.gbBaja.Text = "Dar de baja por dosis (según fila)";
             // 
             // btnBaja
             // 
+            this.btnBaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBaja.BackColor = System.Drawing.Color.White;
             this.btnBaja.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBaja.ForeColor = System.Drawing.Color.Teal;
             this.btnBaja.Location = new System.Drawing.Point(28, 38);
             this.btnBaja.Name = "btnBaja";
-            this.btnBaja.Size = new System.Drawing.Size(366, 43);
+            this.btnBaja.Size = new System.Drawing.Size(231, 43);
             this.btnBaja.TabIndex = 1;
             this.btnBaja.Text = "Baja (stock = 0)";
             this.btnBaja.UseVisualStyleBackColor = false;
@@ -135,21 +138,24 @@ namespace interfaz_medico
             this.gbEliminar.Controls.Add(this.btnEliminarDef);
             this.gbEliminar.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbEliminar.ForeColor = System.Drawing.Color.White;
-            this.gbEliminar.Location = new System.Drawing.Point(1472, 870);
+            this.gbEliminar.Location = new System.Drawing.Point(1105, 571);
             this.gbEliminar.Name = "gbEliminar";
-            this.gbEliminar.Size = new System.Drawing.Size(420, 108);
+            this.gbEliminar.Size = new System.Drawing.Size(233, 108);
             this.gbEliminar.TabIndex = 1;
             this.gbEliminar.TabStop = false;
             this.gbEliminar.Text = "Baja definitiva (eliminar)";
             // 
             // btnEliminarDef
             // 
+            this.btnEliminarDef.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEliminarDef.BackColor = System.Drawing.Color.White;
             this.btnEliminarDef.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarDef.ForeColor = System.Drawing.Color.Teal;
             this.btnEliminarDef.Location = new System.Drawing.Point(27, 38);
             this.btnEliminarDef.Name = "btnEliminarDef";
-            this.btnEliminarDef.Size = new System.Drawing.Size(368, 43);
+            this.btnEliminarDef.Size = new System.Drawing.Size(181, 43);
             this.btnEliminarDef.TabIndex = 1;
             this.btnEliminarDef.Text = "Eliminar";
             this.btnEliminarDef.UseVisualStyleBackColor = false;
@@ -163,7 +169,7 @@ namespace interfaz_medico
             this.panel1.Controls.Add(this.BtnCerrarSesion);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 100);
+            this.panel1.Size = new System.Drawing.Size(1351, 100);
             this.panel1.TabIndex = 5;
             // 
             // label1
@@ -180,7 +186,7 @@ namespace interfaz_medico
             // 
             this.BtnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCerrarSesion.Image = global::interfaz_medico.Properties.Resources.logout_red;
-            this.BtnCerrarSesion.Location = new System.Drawing.Point(1829, 22);
+            this.BtnCerrarSesion.Location = new System.Drawing.Point(1260, 22);
             this.BtnCerrarSesion.Name = "BtnCerrarSesion";
             this.BtnCerrarSesion.Size = new System.Drawing.Size(54, 54);
             this.BtnCerrarSesion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -192,20 +198,23 @@ namespace interfaz_medico
             this.groupBox1.Controls.Add(this.btnAgregarMedicamento);
             this.groupBox1.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(12, 870);
+            this.groupBox1.Location = new System.Drawing.Point(12, 571);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 108);
+            this.groupBox1.Size = new System.Drawing.Size(250, 108);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar medicamento";
             // 
             // btnAgregarMedicamento
             // 
+            this.btnAgregarMedicamento.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregarMedicamento.Font = new System.Drawing.Font("Nunito", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarMedicamento.ForeColor = System.Drawing.Color.Teal;
             this.btnAgregarMedicamento.Location = new System.Drawing.Point(25, 39);
             this.btnAgregarMedicamento.Name = "btnAgregarMedicamento";
-            this.btnAgregarMedicamento.Size = new System.Drawing.Size(368, 43);
+            this.btnAgregarMedicamento.Size = new System.Drawing.Size(198, 43);
             this.btnAgregarMedicamento.TabIndex = 0;
             this.btnAgregarMedicamento.Text = "Agregar";
             this.btnAgregarMedicamento.UseVisualStyleBackColor = true;
@@ -216,7 +225,7 @@ namespace interfaz_medico
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Teal;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1350, 727);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvMedicamentos);

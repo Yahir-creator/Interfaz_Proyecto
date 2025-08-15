@@ -97,14 +97,45 @@ namespace interfaz_medico
             setHeader("estado", "Estado");
         }
 
-        // Botón: Actualizar → AHORA muestra TODAS (incluye Entregado)
-        private void BtnActualizar_Click(object sender, EventArgs e)
+        private string ConstruirDetalleRecetaDeFila(DataGridViewRow fila, string estadoFinal)
         {
-            CargarRecetas(soloPendientes: false);
+            var sb = new StringBuilder();
+
+            if (fila.HasColumn("paciente"))
+                sb.AppendLine($"Paciente: {fila.Cells["paciente"].Value?.ToString()}");
+
+            for (int i = 1; i <= 4; i++)
+            {
+                string colMed = $"medicamento{i}";
+                string colDosis = $"dosis{i}";
+                string colFrec = $"frecuencia{i}";
+
+                string med = fila.HasColumn(colMed) ? fila.Cells[colMed]?.Value?.ToString() : null;
+                string dosis = fila.HasColumn(colDosis) ? fila.Cells[colDosis]?.Value?.ToString() : null;
+                string frec = fila.HasColumn(colFrec) ? fila.Cells[colFrec]?.Value?.ToString() : null;
+
+                if (!string.IsNullOrWhiteSpace(med))
+                    sb.AppendLine($"Medicamento {i}: {med} - {dosis}, {frec}");
+            }
+
+            sb.Append("Estado: ").Append(estadoFinal);
+            return sb.ToString();
         }
 
-        // Botón: Marcar Entregado
-        private void BtnEntregado_Click(object sender, EventArgs e)
+        // (Requerido porque el diseñador enlaza este evento)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // noop
+        }
+
+        private void btnCerrarSesion_Click_1(object sender, EventArgs e)
+        {
+            var login = new FormLogin();
+            login.Show();
+            this.Close();
+        }
+
+        private void btnEntregado_Click_1(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
             {
@@ -148,42 +179,9 @@ namespace interfaz_medico
             }
         }
 
-        private string ConstruirDetalleRecetaDeFila(DataGridViewRow fila, string estadoFinal)
+        private void btnActualizar_Click_1(object sender, EventArgs e)
         {
-            var sb = new StringBuilder();
-
-            if (fila.HasColumn("paciente"))
-                sb.AppendLine($"Paciente: {fila.Cells["paciente"].Value?.ToString()}");
-
-            for (int i = 1; i <= 4; i++)
-            {
-                string colMed = $"medicamento{i}";
-                string colDosis = $"dosis{i}";
-                string colFrec = $"frecuencia{i}";
-
-                string med = fila.HasColumn(colMed) ? fila.Cells[colMed]?.Value?.ToString() : null;
-                string dosis = fila.HasColumn(colDosis) ? fila.Cells[colDosis]?.Value?.ToString() : null;
-                string frec = fila.HasColumn(colFrec) ? fila.Cells[colFrec]?.Value?.ToString() : null;
-
-                if (!string.IsNullOrWhiteSpace(med))
-                    sb.AppendLine($"Medicamento {i}: {med} - {dosis}, {frec}");
-            }
-
-            sb.Append("Estado: ").Append(estadoFinal);
-            return sb.ToString();
-        }
-
-        // (Requerido porque el diseñador enlaza este evento)
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // noop
-        }
-
-        private void btnCerrarSesion_Click_1(object sender, EventArgs e)
-        {
-            var login = new FormLogin();
-            login.Show();
-            this.Close();
+            CargarRecetas(soloPendientes: false);
         }
     }
 

@@ -103,6 +103,16 @@ namespace interfaz_medico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrows_rotate_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("arrows-rotate-solid-full", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap b {
             get {
                 object obj = ResourceManager.GetObject("b", resourceCulture);

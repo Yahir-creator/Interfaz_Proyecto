@@ -130,11 +130,11 @@
   <data name="Diapositiva1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Diapositiva1.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="medico fondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\medico fondo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="user-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="check-to-slot-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\check-to-slot-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="receta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\receta.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,9 +160,6 @@
   <data name="almacen fondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\almacen fondo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="file-arrow-up-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\file-arrow-up-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="suma" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\suma.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,8 +172,11 @@
   <data name="actualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\actualizar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout-red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout-red.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="file-arrow-up-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\file-arrow-up-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="borrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\borrar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="trash-can-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trash-can-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,6 +193,9 @@
   <data name="FONDO AZUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FONDO AZUL.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logout-red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logout-red.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CONLOGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CONLOGO.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -205,10 +208,10 @@
   <data name="Baja" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Baja.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="borrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\borrar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="medico fondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\medico fondo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="check-to-slot-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\check-to-slot-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrows-rotate-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrows-rotate-solid-full.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -943,5 +943,9 @@ namespace ClinicaMedica
             }
         }
 
+        private void FormMedico_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
